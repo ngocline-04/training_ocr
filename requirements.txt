@@ -1,0 +1,7 @@
+opencv-python 
+pillow 
+faker
+numpy==1.26
+vietocr
+torch 
+torchvision
