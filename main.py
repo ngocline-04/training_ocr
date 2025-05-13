@@ -38,12 +38,17 @@ class OCRProcessor:
         self.detector = Predictor(self.config)
     
     def normalize_text(sefl,text):
-        text = re.sub(r'\+|t', '7', text)
+        text = re.sub(r'\+|t|q|F|f', '7', text)
         text = re.sub(r'S|s', '5', text)
         text = re.sub(r'g|G', '9', text)
         text = re.sub(r'\&|K|k', '8', text)
+        text = re.sub(r'-','.',text)
 
-        if text.isdigit() and len(text) == 2 and int(text) > 10:
+        if re.fullmatch(r'\d{3}', text) and text[1] == '1':
+            text = f"{text[0]}.{text[2]}"
+    
+        # Nếu là số có 2 chữ số lớn hơn 10 thì thêm dấu chấm giữa
+        elif text.isdigit() and len(text) == 2 and int(text) > 10:
             text = f"{text[0]}.{text[1]}"
         return text
 
